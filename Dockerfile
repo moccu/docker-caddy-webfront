@@ -1,16 +1,9 @@
-FROM alpine:edge
+FROM moccu/caddy-base:0.9.3.0
 
 LABEL com.moccu.type="webfront"
 
-RUN mkdir /caddy \
-    && addgroup -g 1000 -S caddy \
-    && adduser -S -D -G caddy -u 1000 -h /caddy caddy
+RUN apk add --update libcap && setcap cap_net_bind_service=+ep /usr/bin/caddy
 
-RUN apk --no-cache add caddy tini
-
-RUN chown -R caddy:caddy /caddy
 USER caddy
-
-ENTRYPOINT ["/sbin/tini"]
 
 CMD ["caddy", "--agree", "--conf", "/etc/caddy/Caddyfile"]
