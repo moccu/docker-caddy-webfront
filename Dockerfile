@@ -1,4 +1,4 @@
-FROM moccu/caddy-base:0.9.3.2
+FROM moccu/caddy-base:0.10.2.1
 
 LABEL com.moccu.type="webfront"
 USER caddy
